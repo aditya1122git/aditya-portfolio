@@ -1,28 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-const Hero = () => {
-  const [displayText, setDisplayText] = useState('')
+const Hero = () => {  const [displayText, setDisplayText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-    // Solar system orbiting icons configuration
-  const orbitingIcons = [
-    { icon: 'fab fa-react', radius: 120, speed: 20, delay: 0 },
-    { icon: 'fab fa-node-js', radius: 140, speed: 25, delay: 45 },
-    { icon: 'fab fa-js-square', radius: 160, speed: 30, delay: 90 },
-    { icon: 'fab fa-python', radius: 180, speed: 35, delay: 135 },
-    { icon: 'fab fa-cuttlefish', radius: 200, speed: 40, delay: 180, title: 'C/C++' },
-    { icon: 'fas fa-database', radius: 220, speed: 45, delay: 225, title: 'MongoDB' },
-    { icon: 'fas fa-server', radius: 240, speed: 50, delay: 270, title: 'SQL' },
-    { icon: 'fab fa-git-alt', radius: 260, speed: 55, delay: 315 }
-  ]
-    const roles = [
+  const profileImageRef = useRef(null)
+  
+  const roles = [
     'Full Stack Developer',
     'B.Tech Student', 
     'React Enthusiast',
     'Problem Solver',
     'Tech Explorer'
   ]
-
   useEffect(() => {
     const currentRole = roles[currentIndex]
     const timeout = setTimeout(() => {
@@ -44,6 +33,19 @@ const Hero = () => {
 
     return () => clearTimeout(timeout)
   }, [displayText, currentIndex, isDeleting, roles])
+  // Handle profile image hover effect (grayscale remains always)
+  const handleImageInteraction = (isHovered) => {
+    if (profileImageRef.current) {
+      const img = profileImageRef.current.querySelector('img')
+      if (img) {
+        if (isHovered) {
+          img.style.transform = 'scale(0.95)'
+        } else {
+          img.style.transform = 'scale(0.9)'
+        }
+      }
+    }
+  }
 
   return (
     <section id="hero" className="hero">
@@ -101,10 +103,19 @@ const Hero = () => {
               </div>
             </div>
           </div>          <div className="hero-image">
-            <div className="image-container">
-              <div className="profile-image">
-                <img src="/image/person.jpeg" alt="Aditya Raj - Full Stack Developer" />
-              </div>              <div className="tech-icons">
+            <div className="image-container">              <div className="profile-image" 
+                   ref={profileImageRef}
+                   tabIndex="0" 
+                   role="button" 
+                   aria-label="Profile image"
+                   onMouseEnter={() => handleImageInteraction(true)}
+                   onMouseLeave={() => handleImageInteraction(false)}
+                   onTouchStart={() => handleImageInteraction(true)}
+                   onTouchEnd={() => handleImageInteraction(false)}
+                   onFocus={() => handleImageInteraction(true)}
+                   onBlur={() => handleImageInteraction(false)}>
+                <img src="/image/person.png" alt="Aditya Raj - Full Stack Developer" />
+              </div><div className="tech-icons">
                 <i className="fab fa-react tech-icon"></i>
                 <i className="fab fa-node-js tech-icon"></i>
                 <i className="fab fa-js-square tech-icon"></i>
