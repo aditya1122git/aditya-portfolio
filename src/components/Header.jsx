@@ -25,9 +25,9 @@ const Header = ({ theme, toggleTheme }) => {
       }
     }
       window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-    const menuItems = [
+    return () => window.removeEventListener('scroll', handleScroll)  }, [])
+
+  const menuItems = [
     { name: 'Home', href: '#hero' },
     { name: 'About', href: '#about', section: 'about' },
     { name: 'Skills', href: '#skills', section: 'skills' },
@@ -35,6 +35,7 @@ const Header = ({ theme, toggleTheme }) => {
     { name: 'Projects', href: '#projects', section: 'projects' },
     { name: 'Contact', href: '#contact', section: 'contact' }
   ]
+
   const scrollToSection = (href) => {
     if (href === '#hero') {
       // For Home, scroll to the very top of the page
@@ -42,7 +43,15 @@ const Header = ({ theme, toggleTheme }) => {
     } else {
       const element = document.querySelector(href)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        // Get header height for offset
+        const headerHeight = document.querySelector('.header').offsetHeight
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - headerHeight - 20 // Extra 20px for better spacing
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
       }
     }
     setIsMenuOpen(false)
