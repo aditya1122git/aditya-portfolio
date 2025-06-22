@@ -31,6 +31,7 @@ const Contact = () => {
       }, 5000)
     }, 2000)
   }
+  
   const contactInfo = [
     {
       icon: 'fas fa-envelope',
@@ -49,19 +50,8 @@ const Contact = () => {
       label: 'WhatsApp',
       value: '+91 88731 38156',
       link: 'https://wa.me/918873138156'
-    },
-    {
-      icon: 'fas fa-map-marker-alt',
-      label: 'Location',
-      value: 'Patna, Bihar',
-      link: null
-    },
-    {
-      icon: 'fas fa-graduation-cap',
-      label: 'College',
-      value: 'GGITS, Jabalpur',
-      link: null
-    }]
+    }
+  ]
     const socialLinks = [
     {
       name: 'LinkedIn',
@@ -111,8 +101,7 @@ const Contact = () => {
                 need help with development, or just want to have a tech conversation, feel free to reach out!
               </p>
             </div>
-            
-            <div className="contact-details">
+              <div className="contact-details">
               {contactInfo.map((info, index) => (
                 <div key={index} className="contact-item">
                   <div className="contact-icon">
@@ -132,7 +121,8 @@ const Contact = () => {
             
             <div className="social-links">
               <h4>Follow me on</h4>
-              <div className="social-grid">                {socialLinks.map((social, index) => (
+              <div className="social-grid">
+                {socialLinks.map((social, index) => (
                   <a
                     key={index}
                     href={social.url}
@@ -142,8 +132,10 @@ const Contact = () => {
                     style={{ '--social-color': social.color }}
                     title={social.name}
                   >
-                    {social.icon}
-                    <span>{social.name}</span>
+                    <div className="social-icon">
+                      {social.icon}
+                    </div>
+                    <span className="social-text">{social.name}</span>
                   </a>
                 ))}
               </div>
