@@ -727,19 +727,58 @@
   box-shadow: var(--shadow-glow);
   position: relative;
   background: var(--bg-secondary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: profilePulse 4s ease-in-out infinite;
 }
 
+@keyframes profilePulse {
+  0%, 100% {
+    box-shadow: var(--shadow-glow);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+  }
+}
+
+/* Profile image base styles - permanently grayscale */
 .profile-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 70%;
   border-radius: 50%;
-  transition: transform var(--transition-normal);
+  transform: scale(0.9);
+  /* Permanent grayscale effect */
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  transition: transform 0.3s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
+/* Simple hover effect - only slight scale, no color change */
 .profile-image:hover img {
-  transform: scale(1.05);
+  transform: scale(0.95);
+}
+
+.profile-image:hover {
+  transform: scale(1.02);
+}
+
+.profile-image:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+/* Browser compatibility fallbacks */
+@supports not (filter: grayscale(100%)) {
+  .profile-image img {
+    -webkit-filter: grayscale(100%) brightness(0.9);
+    filter: grayscale(100%) brightness(0.9);
+  }
 }
 
 .tech-icons {
@@ -2439,43 +2478,4 @@
   .contact {
     page-break-inside: avoid;
   }
-}
-
-/* Enhanced Profile Image Styles */
-.profile-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  transition: transform var(--transition-normal);
-}
-
-.profile-image:hover img {
-  transform: scale(1.05);
-}
-
-.about-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: var(--border-radius-lg);
-  transition: transform var(--transition-normal);
-}
-
-.image-wrapper:hover img {
-  transform: scale(1.05);
-}
-
-/* Ensure proper image loading */
-.profile-image,
-.about-image {
-  overflow: hidden;
-}
-
-.profile-image {
-  border: 4px solid var(--primary);
-  box-shadow: var(--shadow-glow);
-  background: var(--bg-secondary);
 }
