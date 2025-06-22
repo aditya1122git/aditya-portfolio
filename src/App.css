@@ -872,8 +872,18 @@
   }
 
   .scroll-indicator {
+    position: absolute;
     bottom: 1rem;
+    left: 0;
+    right: 0; 
     font-size: 0.8rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .name {
@@ -1920,6 +1930,14 @@
   color: var(--text-secondary);
   transition: all var(--transition-fast);
   font-size: 0.9rem;
+  /* Prevent text selection on touch/click */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Better touch handling */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .social-link:hover {
