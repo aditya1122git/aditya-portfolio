@@ -104,13 +104,10 @@ const Footer = () => {
                   <li><a href="#contact">Consulting</a></li>
                   <li><a href="#contact">Code Review</a></li>
                 </ul>
-              </div>
-              
-              <div className="footer-section">
+              </div>                <div className="footer-section">
                 <h4>Resources</h4>
                 <ul>
                   <li><a href="/blog">Blog</a></li>
-                  <li><a href="/resume.pdf" target="_blank">Resume</a></li>
                   <li><a href="#contact">Hire Me</a></li>
                   <li><a href="#projects">Portfolio</a></li>
                   <li><a href="#contact">Testimonials</a></li>
@@ -122,8 +119,7 @@ const Footer = () => {
                 <div className="contact-info">                  <p>
                     <i className="fas fa-envelope"></i>
                     <a href="mailto:ad857885@gmail.com">ad857885@gmail.com</a>
-                  </p>
-                  <p>
+                  </p>                  <p>
                     <i className="fas fa-phone"></i>
                     <a href="tel:+918252655016">+91 82526 55016</a>
                   </p>
