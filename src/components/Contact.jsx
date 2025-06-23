@@ -38,8 +38,7 @@ const Contact = () => {
       label: 'Email',
       value: 'ad857885@gmail.com',
       link: 'mailto:ad857885@gmail.com'
-    },
-    {
+    },    {
       icon: 'fas fa-phone',
       label: 'Phone',
       value: '+91 82526 55016',
@@ -227,14 +226,17 @@ const Contact = () => {
         <div className="cta-section">
           <div className="cta-content">
             <h3>Ready to start a project?</h3>
-            <p>Let's build something amazing together!</p>
-            <div className="cta-buttons">              <a href="mailto:ad857885@gmail.com" className="btn btn-primary">
+            <p>Let's build something amazing together!</p>            <div className="cta-buttons">              <a href="mailto:ad857885@gmail.com" className="btn btn-primary">
                 <i className="fas fa-envelope"></i>
                 Email Me
-              </a>
-              <a href="/resume.pdf" target="_blank" className="btn btn-secondary">
-                <i className="fas fa-download"></i>
-                Download Resume
+              </a>              <a 
+                href="https://wa.me/918873138156?text=Hi%20Aditya,%20I'd%20like%20to%20connect!" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                <i className="fab fa-whatsapp"></i>
+                WhatsApp Me
               </a>
             </div>
           </div>
