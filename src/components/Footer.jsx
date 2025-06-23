@@ -135,7 +135,7 @@ const Footer = () => {
         
         <div className="footer-bottom">
           <div className="footer-bottom-content">            <p className="copyright">
-              © {currentYear} Aditya Raj. Made with <i className="fas fa-heart"></i> using React & Vite
+              © {currentYear} Aditya Raj. All Rights Reserved
             </p>
             <div className="footer-bottom-links">
               <a href="/privacy">Privacy Policy</a>
