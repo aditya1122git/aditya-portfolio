@@ -43,8 +43,7 @@ const Contact = () => {
       label: 'Phone',
       value: '+91 82526 55016',
       link: 'tel:+918252655016'
-    },
-    {
+    },    {
       icon: 'fab fa-whatsapp',
       label: 'WhatsApp',
       value: '+91 88731 38156',
