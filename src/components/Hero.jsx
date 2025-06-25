@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 
-const Hero = () => {  const [displayText, setDisplayText] = useState('')
+const Hero = () => {
+  const [displayText, setDisplayText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [isImageColored, setIsImageColored] = useState(false)
   const profileImageRef = useRef(null)
   
   const roles = [
@@ -33,14 +35,18 @@ const Hero = () => {  const [displayText, setDisplayText] = useState('')
 
     return () => clearTimeout(timeout)
   }, [displayText, currentIndex, isDeleting, roles])
-  // Handle profile image hover effect (grayscale remains always)
-  const handleImageInteraction = (isHovered) => {
+
+  // Handle profile image interactions
+  const handleImageInteraction = (colored) => {
+    setIsImageColored(colored)
     if (profileImageRef.current) {
       const img = profileImageRef.current.querySelector('img')
       if (img) {
-        if (isHovered) {
+        if (colored) {
+          img.style.filter = 'grayscale(0%) brightness(1.05) saturate(1.1)'
           img.style.transform = 'scale(0.95)'
         } else {
+          img.style.filter = 'grayscale(100%)'
           img.style.transform = 'scale(0.9)'
         }
       }
@@ -90,7 +96,7 @@ const Hero = () => {  const [displayText, setDisplayText] = useState('')
             </div>
               <div className="hero-stats">
               <div className="stat">
-                <span className="stat-number">15+</span>
+                <span className="stat-number">10+</span>
                 <span className="stat-label">Projects</span>
               </div>
               <div className="stat">
@@ -98,7 +104,7 @@ const Hero = () => {  const [displayText, setDisplayText] = useState('')
                 <span className="stat-label">Semester</span>
               </div>
               <div className="stat">
-                <span className="stat-number">2+</span>
+                <span className="stat-number">3+</span>
                 <span className="stat-label">Years Learning</span>
               </div>
             </div>
@@ -107,7 +113,7 @@ const Hero = () => {  const [displayText, setDisplayText] = useState('')
                    ref={profileImageRef}
                    tabIndex="0" 
                    role="button" 
-                   aria-label="Profile image"
+                   aria-label="Profile image - hover or tap to see in color"
                    onMouseEnter={() => handleImageInteraction(true)}
                    onMouseLeave={() => handleImageInteraction(false)}
                    onTouchStart={() => handleImageInteraction(true)}
