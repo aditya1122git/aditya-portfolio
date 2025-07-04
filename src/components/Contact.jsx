@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import * as emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +23,11 @@ const Contact = () => {
     setSubmitStatus(null)
     
     try {
+      // Check if EmailJS is loaded from CDN
+      if (typeof window.emailjs === 'undefined') {
+        throw new Error('EmailJS not loaded')
+      }
+
       // EmailJS configuration - Update these with your real EmailJS setup
       const serviceId = 'service_portfolio'      // Your EmailJS Service ID
       const templateId = 'template_portfolio'    // Your EmailJS Template ID  
@@ -53,11 +57,11 @@ const Contact = () => {
       }
       
       // Send main email to you (this is required)
-      await emailjs.send(serviceId, templateId, templateParams, publicKey)
+      await window.emailjs.send(serviceId, templateId, templateParams, publicKey)
       
       // Try to send auto-reply (optional - won't fail if template doesn't exist)
       try {
-        await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey)
+        await window.emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey)
         console.log('Auto-reply sent successfully')
       } catch (autoReplyError) {
         console.log('Auto-reply failed (template might not exist yet):', autoReplyError)
@@ -80,7 +84,9 @@ const Contact = () => {
       // More specific error handling
       let errorMessage = 'Sorry, there was an error sending your message. Please try again or contact me directly.'
       
-      if (error.status === 400) {
+      if (error.message === 'EmailJS not loaded') {
+        errorMessage = 'Email service is loading. Please wait a moment and try again.'
+      } else if (error.status === 400) {
         errorMessage = 'EmailJS configuration error. Please contact the site owner.'
         console.error('EmailJS 400 Error - Check your service ID, template ID, or public key')
       } else if (error.status === 401) {
@@ -292,7 +298,7 @@ const Contact = () => {
               {submitStatus === 'error' && (
                 <div className="form-error">
                   <i className="fas fa-exclamation-circle"></i>
-                  EmailJS is not configured yet. Please contact me directly at ad857885@gmail.com or via WhatsApp.
+                  Sorry, there was an error sending your message. Please try again or contact me directly at ad857885@gmail.com.
                 </div>
               )}
             </form>
