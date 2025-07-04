@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,16 +21,68 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus(null)
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      // EmailJS configuration - Real setup with your account
+      const serviceId = 'service_portfolio'      // EmailJS Service ID
+      const templateId = 'template_portfolio'    // EmailJS Template ID  
+      const autoReplyTemplateId = 'template_autoreply'  // Auto-reply Template ID
+      const publicKey = 'H2v2dCuwqBaBxRxHe'      // Your EmailJS Public Key
+      
+      // Template parameters for main email (to you)
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: 'Aditya Raj',
+        to_email: 'ad857885@gmail.com',           // Your main email where you want to receive messages
+        reply_to: formData.email
+      }
+      
+      // Template parameters for auto-reply (to sender)
+      const autoReplyParams = {
+        to_name: formData.name,
+        to_email: formData.email,         // This will be used in template content, not for To field
+        user_email: formData.email,       // Add this for clarity
+        from_name: 'Aditya Raj',
+        from_email: 'ad857885@gmail.com',
+        original_subject: formData.subject,
+        original_message: formData.message
+      }
+      
+      // Send main email to you (this is required)
+      await emailjs.send(serviceId, templateId, templateParams, publicKey)
+      
+      // Try to send auto-reply (optional)
+      try {
+        await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey)
+      } catch (autoReplyError) {
+        // Auto-reply is optional, continue anyway
+        console.log('Auto-reply not sent')
+      }
+      
+      // Success
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
-        setTimeout(() => {
+      
+      // Auto hide success message after 5 seconds
+      setTimeout(() => {
         setSubmitStatus(null)
       }, 5000)
-    }, 2000)
+      
+    } catch (error) {
+      console.error('Email sending failed:', error)
+      setSubmitStatus('error')
+      
+      // Auto hide error message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus(null)
+      }, 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   
   const contactInfo = [
@@ -216,6 +269,13 @@ const Contact = () => {
                 <div className="form-success">
                   <i className="fas fa-check-circle"></i>
                   Thank you! Your message has been sent successfully. I'll get back to you soon.
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="form-error">
+                  <i className="fas fa-exclamation-circle"></i>
+                  Sorry, there was an error sending your message. Please try again or contact me directly.
                 </div>
               )}
             </form>
