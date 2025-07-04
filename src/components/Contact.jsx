@@ -24,11 +24,11 @@ const Contact = () => {
     setSubmitStatus(null)
     
     try {
-      // EmailJS configuration - Real setup with your account
-      const serviceId = 'service_portfolio'      // EmailJS Service ID
-      const templateId = 'template_portfolio'    // EmailJS Template ID  
+      // EmailJS configuration - Update these with your real EmailJS setup
+      const serviceId = 'service_portfolio'      // Your EmailJS Service ID
+      const templateId = 'template_portfolio'    // Your EmailJS Template ID  
       const autoReplyTemplateId = 'template_autoreply'  // Auto-reply Template ID
-      const publicKey = 'H2v2dCuwqBaBxRxHe'      // Your EmailJS Public Key
+      const publicKey = 'H2v2dCuwqBaBxRxHe'      // Your EmailJS Public Key (UPDATE THIS!)
       
       // Template parameters for main email (to you)
       const templateParams = {
@@ -74,21 +74,29 @@ const Contact = () => {
       }, 5000)
       
     } catch (error) {
-      console.error('Main email sending failed:', error)
+      console.error('EmailJS Error:', error)
       console.error('Error details:', error.text || error.message)
-      console.error('Error status:', error.status)
       
       // More specific error handling
+      let errorMessage = 'Sorry, there was an error sending your message. Please try again or contact me directly.'
+      
       if (error.status === 400) {
+        errorMessage = 'EmailJS configuration error. Please contact the site owner.'
         console.error('EmailJS 400 Error - Check your service ID, template ID, or public key')
+      } else if (error.status === 401) {
+        errorMessage = 'EmailJS authentication failed. Please contact the site owner.'
+        console.error('EmailJS 401 Error - Invalid public key or unauthorized')
+      } else if (error.status === 404) {
+        errorMessage = 'EmailJS service not found. Please contact the site owner.'
+        console.error('EmailJS 404 Error - Service or template not found')
       }
       
       setSubmitStatus('error')
       
-      // Auto hide error message after 5 seconds
+      // Auto hide error message after 8 seconds
       setTimeout(() => {
         setSubmitStatus(null)
-      }, 5000)
+      }, 8000)
     } finally {
       setIsSubmitting(false)
     }
@@ -284,7 +292,7 @@ const Contact = () => {
               {submitStatus === 'error' && (
                 <div className="form-error">
                   <i className="fas fa-exclamation-circle"></i>
-                  Sorry, there was an error sending your message. Please try again or contact me directly.
+                  EmailJS is not configured yet. Please contact me directly at ad857885@gmail.com or via WhatsApp.
                 </div>
               )}
             </form>
