@@ -11,17 +11,7 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       onwarn: () => {},  // Suppress all warnings
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          emailjs: ['@emailjs/browser']
-        }
-      }
     }
-  },
-  optimizeDeps: {
-    include: ['@emailjs/browser'],
-    force: true
   },
   define: {
     global: 'globalThis',
