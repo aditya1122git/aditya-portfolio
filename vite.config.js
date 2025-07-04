@@ -4,21 +4,13 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: './',
   build: {
-    target: 'esnext',
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
     rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          emailjs: ['@emailjs/browser']
-        }
-      }
+      onwarn: () => {},  // Suppress all warnings
     }
-  },
-  optimizeDeps: {
-    include: ['@emailjs/browser']
-  },
-  define: {
-    global: 'globalThis'
   }
 })
