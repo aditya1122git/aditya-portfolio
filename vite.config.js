@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
+    target: 'esnext',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -16,5 +17,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['@emailjs/browser']
+  },
+  define: {
+    global: 'globalThis'
   }
 })
