@@ -55,12 +55,13 @@ const Contact = () => {
       // Send main email to you (this is required)
       await emailjs.send(serviceId, templateId, templateParams, publicKey)
       
-      // Try to send auto-reply (optional)
+      // Try to send auto-reply (optional - won't fail if template doesn't exist)
       try {
         await emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey)
+        console.log('Auto-reply sent successfully')
       } catch (autoReplyError) {
-        // Auto-reply is optional, continue anyway
-        console.log('Auto-reply not sent')
+        console.log('Auto-reply failed (template might not exist yet):', autoReplyError)
+        // Continue anyway - main email was sent successfully
       }
       
       // Success
@@ -73,7 +74,15 @@ const Contact = () => {
       }, 5000)
       
     } catch (error) {
-      console.error('Email sending failed:', error)
+      console.error('Main email sending failed:', error)
+      console.error('Error details:', error.text || error.message)
+      console.error('Error status:', error.status)
+      
+      // More specific error handling
+      if (error.status === 400) {
+        console.error('EmailJS 400 Error - Check your service ID, template ID, or public key')
+      }
+      
       setSubmitStatus('error')
       
       // Auto hide error message after 5 seconds
