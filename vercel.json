@@ -1,10 +1,15 @@
 {
   "buildCommand": "npm ci && npm run build",
   "outputDirectory": "dist",
-  "framework": null,
+  "framework": "vite",
   "installCommand": "npm ci",
   "env": {
-    "NODE_ENV": "production",
-    "NODE_OPTIONS": "--max-old-space-size=4096"
-  }
+    "NODE_ENV": "production"
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
