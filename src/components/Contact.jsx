@@ -47,7 +47,7 @@ const Contact = () => {
       icon: 'fab fa-whatsapp',
       label: 'WhatsApp',
       value: '+91 88731 38156',
-      link: 'https://wa.me/918873138156'
+      link: 'https://wa.me/918873138156?text=Hi%20Aditya,%20I\'d%20like%20to%20connect!'
     }
   ]
     const socialLinks = [
@@ -228,14 +228,9 @@ const Contact = () => {
             <p>Let's build something amazing together!</p>            <div className="cta-buttons">              <a href="mailto:ad857885@gmail.com" className="btn btn-primary">
                 <i className="fas fa-envelope"></i>
                 Email Me
-              </a>              <a 
-                href="https://wa.me/918873138156?text=Hi%20Aditya,%20I'd%20like%20to%20connect!" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-              >
-                <i className="fab fa-whatsapp"></i>
-                WhatsApp Me
+              </a>              <a href="https://drive.google.com/file/d/1QhckOIPZZmd1Om00NgJQIeTN7xoOyaJp/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                <i className="fas fa-download"></i>
+                Download Resume
               </a>
             </div>
           </div>
