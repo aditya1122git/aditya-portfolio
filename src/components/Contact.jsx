@@ -41,30 +41,34 @@ const Contact = () => {
         subject: formData.subject,
         message: formData.message,
         to_name: 'Aditya Raj',
-        to_email: 'ad857885@gmail.com',           // Your main email where you want to receive messages
+        to_email: 'aditya.raj.cs22@gmail.com',           // Your main email where you want to receive messages
         reply_to: formData.email
       }
       
       // Template parameters for auto-reply (to sender)
       const autoReplyParams = {
         to_name: formData.name,
-        to_email: formData.email,         // This will be used in template content, not for To field
-        user_email: formData.email,       // Add this for clarity
+        user_email: formData.email,       // Matches {{user_email}} in template
+        from_email: formData.email,       // Matches {{from_email}} in template  
         from_name: 'Aditya Raj',
-        from_email: 'ad857885@gmail.com',
         original_subject: formData.subject,
         original_message: formData.message
       }
       
       // Send main email to you (this is required)
+      console.log('Sending main email...')
       await window.emailjs.send(serviceId, templateId, templateParams, publicKey)
+      console.log('Main email sent successfully')
       
-      // Try to send auto-reply (optional - won't fail if template doesn't exist)
+      // Send auto-reply immediately (optional - won't fail if template doesn't exist)
       try {
+        console.log('Sending auto-reply with params:', autoReplyParams)
         await window.emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey)
         console.log('Auto-reply sent successfully')
       } catch (autoReplyError) {
-        console.log('Auto-reply failed (template might not exist yet):', autoReplyError)
+        console.error('Auto-reply failed:', autoReplyError)
+        console.error('Auto-reply error details:', autoReplyError.text || autoReplyError.message)
+        console.error('Auto-reply error status:', autoReplyError.status)
         // Continue anyway - main email was sent successfully
       }
       
@@ -112,8 +116,8 @@ const Contact = () => {
     {
       icon: 'fas fa-envelope',
       label: 'Email',
-      value: 'ad857885@gmail.com',
-      link: 'mailto:ad857885@gmail.com'
+      value: 'aditya.raj.cs22@gmail.com',
+      link: 'https://mail.google.com/mail/?view=cm&fs=1&to=aditya.raj.cs22@gmail.com'
     },    {
       icon: 'fas fa-phone',
       label: 'Phone',
@@ -298,7 +302,7 @@ const Contact = () => {
               {submitStatus === 'error' && (
                 <div className="form-error">
                   <i className="fas fa-exclamation-circle"></i>
-                  Sorry, there was an error sending your message. Please try again or contact me directly at ad857885@gmail.com.
+                  Sorry, there was an error sending your message. Please try again or contact me directly at aditya.raj.cs22@gmail.com.
                 </div>
               )}
             </form>
@@ -308,10 +312,10 @@ const Contact = () => {
         <div className="cta-section">
           <div className="cta-content">
             <h3>Ready to start a project?</h3>
-            <p>Let's build something amazing together!</p>            <div className="cta-buttons">              <a href="mailto:ad857885@gmail.com" className="btn btn-primary">
+            <p>Let's build something amazing together!</p>            <div className="cta-buttons">              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aditya.raj.cs22@gmail.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">
                 <i className="fas fa-envelope"></i>
                 Email Me
-              </a>              <a href="https://drive.google.com/file/d/1QhckOIPZZmd1Om00NgJQIeTN7xoOyaJp/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+              </a>              <a href="https://drive.google.com/file/d/1F8NA1fkDjdik8q3qXD2HI0NxJjM7y0-m/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                 <i className="fas fa-download"></i>
                 Download Resume
               </a>
