@@ -118,7 +118,7 @@ const Footer = () => {
                 <h4>Contact Info</h4>
                 <div className="contact-info">                  <p>
                     <i className="fas fa-envelope"></i>
-                    <a href="mailto:ad857885@gmail.com">ad857885@gmail.com</a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aditya.raj.cs22@gmail.com" target="_blank" rel="noopener noreferrer">aditya.raj.cs22@gmail.com</a>
                   </p>                  <p>
                     <i className="fas fa-phone"></i>
                     <a href="tel:+918252655016">+91 82526 55016</a>
