@@ -107,11 +107,7 @@ const Footer = () => {
               </div>                <div className="footer-section">
                 <h4>Resources</h4>
                 <ul>
-<<<<<<< HEAD
                   <li><a href="https://github.com/aditya1122git" target="_blank" rel="noopener noreferrer">GitHub Projects</a></li>
-=======
-                  <li><a href="/blog">Blog</a></li>
->>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
                   <li><a href="#contact">Hire Me</a></li>
                   <li><a href="#projects">Portfolio</a></li>
                   <li><a href="https://drive.google.com/file/d/1F8NA1fkDjdik8q3qXD2HI0NxJjM7y0-m/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a></li>
