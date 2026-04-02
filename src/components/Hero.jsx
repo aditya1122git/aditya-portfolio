@@ -120,6 +120,7 @@ const Hero = () => {
                    onTouchEnd={() => handleImageInteraction(false)}
                    onFocus={() => handleImageInteraction(true)}
                    onBlur={() => handleImageInteraction(false)}>
+<<<<<<< HEAD
                 <img
                   src="/image/person.png"
                   alt="Aditya Raj full stack developer profile photo"
@@ -127,6 +128,9 @@ const Hero = () => {
                   decoding="async"
                   fetchPriority="high"
                 />
+=======
+                <img src="/image/person.png" alt="Aditya Raj - Full Stack Developer" />
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
               </div><div className="tech-icons">
                 <i className="fab fa-react tech-icon"></i>
                 <i className="fab fa-node-js tech-icon"></i>

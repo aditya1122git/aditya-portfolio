@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "buildCommand": "npm ci && npm run build",
   "outputDirectory": "dist",
@@ -13,3 +14,20 @@
     }
   ]
 }
+=======
+{
+  "buildCommand": "npm ci && npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "installCommand": "npm ci",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b

@@ -47,7 +47,11 @@ const Experience = () => {  const experiences = [
       degree: 'Bachelor of Technology (Computer Science)',
       institution: 'Gyan Ganga Institute Of Technology and Sciences',
       period: '2022 - 2026',
+<<<<<<< HEAD
       description: 'Currently in 8th semester, focusing on Software Development, Data Structures, and Web Technologies'
+=======
+      description: 'Currently in 7th semester, focusing on Software Development, Data Structures, and Web Technologies'
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
     },
     {
       degree: 'Higher Secondary (12th) - CBSE',

@@ -81,22 +81,31 @@ const Projects = () => {
       status: 'completed'    },
     {
       id: 6,
-      title: 'Weather Dashboard',
+      title: 'WeatherPro',
       category: 'frontend',
       description: 'A beautiful weather dashboard with location-based forecasts and interactive charts.',
+<<<<<<< HEAD
       longDescription: 'Created a responsive weather dashboard that displays current weather conditions, 7-day forecasts, and interactive charts. Features location-based weather data and beautiful animations.',
+=======
+      longDescription: 'Created a responsive weather dashboard that displays current weather conditions, 5-day forecasts, and interactive charts. Features location-based weather data and beautiful animations.',
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
       image: '/image/weather.png',
       technologies: ['React', 'Chart.js', 'OpenWeather API', 'CSS3'],
       features: [
         'Location-based weather data',
-        '7-day weather forecast',
+        '5-day weather forecast',
         'Interactive charts',
         'Beautiful animations',
         'Responsive design',
         'PWA capabilities'
       ],
+<<<<<<< HEAD
       liveLink: 'https://weather-dashboard-rho-tawny.vercel.app/',
       githubLink: null,
+=======
+      liveLink: 'https://weather-dashboard-rho-tawny.vercel.app',
+      githubLink: 'https://github.com/aditya1122git/weather-dashboard',
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
       status: 'completed'    },
     {
       id: 7,

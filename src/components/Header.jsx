@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react'
 const Header = ({ theme, toggleTheme }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('hero')
-
+  const [activeSection, setActiveSection] = useState('')
   useEffect(() => {
+    let ticking = false
+    
     const handleScroll = () => {
+<<<<<<< HEAD
       setScrolled(window.scrollY > 50)
       
       // Detect active section
@@ -42,6 +44,84 @@ const Header = ({ theme, toggleTheme }) => {
     
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)  }, [])
+=======
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50)          // Detect active section with improved logic
+          const sections = ['about', 'skills', 'experience', 'projects', 'contact']
+          let currentSection = '' // Default to no section (Home will never be active)
+            // Get current scroll position with responsive offset
+          const isMobile = window.innerWidth <= 768
+          const headerOffset = isMobile ? 100 : 120 // Mobile has different header behavior
+          const scrollPosition = window.scrollY + headerOffset
+            // Find the section that is currently in view
+          for (let i = sections.length - 1; i >= 0; i--) {
+            const sectionId = sections[i]
+            const element = document.getElementById(sectionId)
+            if (element) {
+              const offsetTop = element.offsetTop
+              const offsetHeight = element.offsetHeight
+              
+              // For better mobile detection, check if section is in viewport
+              const sectionMiddle = offsetTop + (offsetHeight / 2)
+              const viewportMiddle = scrollPosition - headerOffset + (window.innerHeight / 2)
+              
+              // If we've scrolled past the start of this section, it's the active one
+              if (isMobile) {
+                // On mobile, use middle-based detection for better accuracy
+                if (Math.abs(viewportMiddle - sectionMiddle) < offsetHeight / 2) {
+                  currentSection = sectionId
+                  break
+                }
+              } else {
+                // On desktop, use original logic
+                if (scrollPosition >= offsetTop) {
+                  currentSection = sectionId
+                  break
+                }
+              }
+            }
+          }
+          // If no section was detected on mobile, use simpler detection
+          if (isMobile && !currentSection) {
+            for (const sectionId of sections) {
+              const element = document.getElementById(sectionId)
+              if (element) {
+                const rect = element.getBoundingClientRect()
+                const headerHeight = document.querySelector('.header')?.offsetHeight || 80
+                
+                // If section is visible in viewport (accounting for header)
+                if (rect.top <= headerHeight + 50 && rect.bottom >= headerHeight + 50) {
+                  currentSection = sectionId
+                  break
+                }
+              }
+            }
+          }
+          
+          // Special case for the last section (contact) - if near bottom of page
+          const documentHeight = document.documentElement.scrollHeight
+          const windowHeight = window.innerHeight
+          const scrollTop = window.scrollY
+          
+          // If we're near the bottom of the page, activate contact
+          if (scrollTop + windowHeight >= documentHeight - 50) {
+            currentSection = 'contact'
+          }
+          
+          setActiveSection(currentSection)
+          ticking = false
+        })
+        ticking = true      }
+    }
+    
+    // Initial check on component mount
+    handleScroll()
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
 
   const menuItems = [
     { name: 'Home', href: '#hero', section: 'hero' },
@@ -99,7 +179,10 @@ const Header = ({ theme, toggleTheme }) => {
                 scrollToSection(item.href)
               }}
               className={`nav-link ${activeSection === item.section ? 'active' : ''}`}
+<<<<<<< HEAD
               aria-current={activeSection === item.section ? 'page' : undefined}
+=======
+>>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
             >
               {item.name}
             </a>
