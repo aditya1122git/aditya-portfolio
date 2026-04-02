@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .email-container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        
+        .header { 
+            background: #4a90e2;
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center;
+        }
+        
+        .header h1 { 
+            font-size: 24px; 
+            font-weight: bold; 
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p { 
+            font-size: 16px;
+        }
+        
+        .content { 
+            padding: 30px 20px; 
+        }
+        
+        .greeting { 
+            font-size: 18px; 
+            color: #4a90e2; 
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .message-card { 
+            background: #f8f9fa;
+            padding: 20px; 
+            border-radius: 8px; 
+            border-left: 4px solid #4a90e2; 
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+        
+        .message-card p { 
+            margin-bottom: 15px; 
+            font-size: 16px;
+        }
+        
+        .message-card strong { 
+            color: #333;
+        }
+        
+        .original-message { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+        
+        .original-label { 
+            font-weight: bold; 
+            color: #666; 
+            margin-bottom: 12px; 
+            display: block;
+            font-size: 14px;
+        }
+        
+        .subject-line { 
+            background: white;
+            padding: 12px 16px;
+            border-radius: 4px;
+            border-left: 3px solid #4a90e2;
+            margin: 8px 0;
+            font-weight: bold;
+        }
+        
+        .message-content {
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            border: 1px solid #e9ecef;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .contact-section { 
+            background: #4a90e2;
+            color: white; 
+            padding: 25px 20px; 
+            border-radius: 8px; 
+            margin: 25px 0;
+        }
+        
+        .contact-section h3 { 
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .contact-item { 
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .contact-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 2px;
+        }
+        
+        .contact-value {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        
+        .btn { 
+            background: rgba(255, 255, 255, 0.2);
+            color: white; 
+            padding: 12px 20px; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .social-section { 
+            text-align: center; 
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .social-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .social-links {
+            text-align: center;
+        }
+        
+        .social-link { 
+            color: #4a90e2; 
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 4px;
+            background: white;
+            border: 1px solid #ddd;
+            display: inline-block;
+            margin: 5px;
+        }
+        
+        .signature { 
+            text-align: center; 
+            margin: 25px 0;
+            padding: 20px;
+        }
+        
+        .signature-name {
+            color: #4a90e2; 
+            font-size: 20px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        
+        .signature-title {
+            color: #666;
+            font-style: italic;
+            font-size: 16px;
+        }
+        
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            background: #f8f9fa;
+            color: #666; 
+            font-size: 13px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .footer p {
+            margin: 4px 0;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #856404;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .email-container { 
+                margin: 0; 
+                border-radius: 4px;
+            }
+            
+            .header { 
+                padding: 20px 15px;
+            }
+            
+            .header h1 { 
+                font-size: 20px; 
+            }
+            
+            .header p { 
+                font-size: 14px; 
+            }
+            
+            .content { 
+                padding: 20px 15px; 
+            }
+            
+            .greeting {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .message-card { 
+                padding: 15px; 
+                margin: 15px 0;
+            }
+            
+            .message-card p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .original-message {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .original-label {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .subject-line {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+            
+            .message-content {
+                padding: 12px;
+                font-size: 12px;
+            }
+            
+            .contact-section { 
+                padding: 20px 15px; 
+                margin: 20px 0;
+            }
+            
+            .contact-section h3 {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            
+            .contact-item { 
+                padding: 10px 12px; 
+            }
+            
+            .contact-label {
+                font-size: 10px;
+            }
+            
+            .contact-value {
+                font-size: 13px;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                padding: 12px 16px;
+                font-size: 13px;
+                margin: 10px auto;
+                display: block;
+                text-align: center;
+            }
+            
+            .social-section {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .social-title {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .social-links { 
+                text-align: center; 
+            }
+            
+            .social-link {
+                display: block;
+                width: 80%;
+                max-width: 200px;
+                margin: 5px auto;
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .signature {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .signature p {
+                font-size: 12px;
+            }
+            
+            .signature-name {
+                font-size: 16px;
+            }
+            
+            .signature-title {
+                font-size: 12px;
+            }
+            
+            .footer { 
+                padding: 15px; 
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🚀 Thank You for Reaching Out!</h1>
+            <p>Your message has been received successfully</p>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                Hi {{to_name}},
+            </div>
+            
+            <div class="message-card">
+                <p><strong>Thank you for contacting me!</strong> 😊</p>
+                <p>I've received your message and really appreciate you taking the time to reach out. I typically respond within <span class="highlight">24-48 hours</span>, but often much sooner!</p>
+                <p>I'm excited to learn more about your project and explore how we can work together to bring your ideas to life.</p>
+            </div>
+            
+            <div class="original-message">
+                <span class="original-label">📋 Your Message Summary</span>
+                
+                <div class="subject-line">
+                    <strong>Subject:</strong> {{original_subject}}
+                </div>
+                
+                <div style="margin: 16px 0;">
+                    <strong style="color: #666;">Message:</strong>
+                </div>
+                <div class="message-content">{{original_message}}</div>
+            </div>
+            
+            <div class="contact-section">
+                <h3>📇 Quick Contact Options</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-label">💌 Email</div>
+                    <div class="contact-value">aditya.raj.cs22@gmail.com</div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-label">📞 Phone</div>
+                    <div class="contact-value">+91 82526 55016</div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-label">💬 WhatsApp</div>
+                    <div class="contact-value">+91 88731 38156</div>
+                </div>
+                
+                <a href="https://drive.google.com/file/d/1F8NA1fkDjdik8q3qXD2HI0NxJjM7y0-m/view?usp=sharing" class="btn">
+                    ⬇️ Download Resume
+                </a>
+            </div>
+            
+            <div class="social-section">
+                <div class="social-title">
+                    🔗 Let's Connect on Social Media
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/aditya-raj-07a7a02a7" class="social-link">
+                        💼 LinkedIn
+                    </a>
+                    <a href="https://github.com/aditya1122git" class="social-link">
+                        💻 GitHub
+                    </a>
+                    <a href="https://www.instagram.com/unsocial_aditya1" class="social-link">
+                        📸 Instagram
+                    </a>
+                </div>
+            </div>
+            
+            <div class="signature">
+                <p style="color: #666; margin-bottom: 8px;">Looking forward to our conversation!</p>
+                <div style="color: #333; font-weight: bold;">Best regards,</div>
+                <div class="signature-name">Aditya Raj</div>
+                <div class="signature-title">Full Stack Developer</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This is an automated response. I'll personally reply to your message soon!</p>
+            <p>© 2025 Aditya Raj Portfolio • Built with ❤️ and Innovation</p>
+        </div>
+    </div>
+</body>
+</html>

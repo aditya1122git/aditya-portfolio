@@ -1,28 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-    // Solar system orbiting icons configuration
-  const orbitingIcons = [
-    { icon: 'fab fa-react', radius: 120, speed: 20, delay: 0 },
-    { icon: 'fab fa-node-js', radius: 140, speed: 25, delay: 45 },
-    { icon: 'fab fa-js-square', radius: 160, speed: 30, delay: 90 },
-    { icon: 'fab fa-python', radius: 180, speed: 35, delay: 135 },
-    { icon: 'fab fa-cuttlefish', radius: 200, speed: 40, delay: 180, title: 'C/C++' },
-    { icon: 'fas fa-database', radius: 220, speed: 45, delay: 225, title: 'MongoDB' },
-    { icon: 'fas fa-server', radius: 240, speed: 50, delay: 270, title: 'SQL' },
-    { icon: 'fab fa-git-alt', radius: 260, speed: 55, delay: 315 }
-  ]
-    const roles = [
+  const [isImageColored, setIsImageColored] = useState(false)
+  const profileImageRef = useRef(null)
+  
+  const roles = [
     'Full Stack Developer',
     'B.Tech Student', 
     'React Enthusiast',
     'Problem Solver',
     'Tech Explorer'
   ]
-
   useEffect(() => {
     const currentRole = roles[currentIndex]
     const timeout = setTimeout(() => {
@@ -44,6 +35,23 @@ const Hero = () => {
 
     return () => clearTimeout(timeout)
   }, [displayText, currentIndex, isDeleting, roles])
+
+  // Handle profile image interactions
+  const handleImageInteraction = (colored) => {
+    setIsImageColored(colored)
+    if (profileImageRef.current) {
+      const img = profileImageRef.current.querySelector('img')
+      if (img) {
+        if (colored) {
+          img.style.filter = 'grayscale(0%) brightness(1.05) saturate(1.1)'
+          img.style.transform = 'scale(0.95)'
+        } else {
+          img.style.filter = 'grayscale(100%)'
+          img.style.transform = 'scale(0.9)'
+        }
+      }
+    }
+  }
 
   return (
     <section id="hero" className="hero">
@@ -88,23 +96,38 @@ const Hero = () => {
             </div>
               <div className="hero-stats">
               <div className="stat">
-                <span className="stat-number">15+</span>
+                <span className="stat-number">10+</span>
                 <span className="stat-label">Projects</span>
               </div>
               <div className="stat">
-                <span className="stat-number">7th</span>
+                <span className="stat-number">8th</span>
                 <span className="stat-label">Semester</span>
               </div>
               <div className="stat">
-                <span className="stat-number">2+</span>
+                <span className="stat-number">3+</span>
                 <span className="stat-label">Years Learning</span>
               </div>
             </div>
           </div>          <div className="hero-image">
-            <div className="image-container">
-              <div className="profile-image">
-                <img src="/image/person.jpeg" alt="Aditya Raj - Full Stack Developer" />
-              </div>              <div className="tech-icons">
+            <div className="image-container">              <div className="profile-image" 
+                   ref={profileImageRef}
+                   tabIndex="0" 
+                   role="button" 
+                   aria-label="Profile image - hover or tap to see in color"
+                   onMouseEnter={() => handleImageInteraction(true)}
+                   onMouseLeave={() => handleImageInteraction(false)}
+                   onTouchStart={() => handleImageInteraction(true)}
+                   onTouchEnd={() => handleImageInteraction(false)}
+                   onFocus={() => handleImageInteraction(true)}
+                   onBlur={() => handleImageInteraction(false)}>
+                <img
+                  src="/image/person.png"
+                  alt="Aditya Raj full stack developer profile photo"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                />
+              </div><div className="tech-icons">
                 <i className="fab fa-react tech-icon"></i>
                 <i className="fab fa-node-js tech-icon"></i>
                 <i className="fab fa-js-square tech-icon"></i>

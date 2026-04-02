@@ -53,10 +53,10 @@ const Skills = () => {
   ]
 
   return (
-    <section id="skills" className="skills">
+    <section id="skills" className="skills" aria-labelledby="skills-title">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Skills & Technologies</h2>
+          <h2 id="skills-title" className="section-title">Skills & Technologies</h2>
           <p className="section-subtitle">Technologies I work with</p>
         </div>
         

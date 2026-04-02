@@ -20,48 +20,116 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus(null)
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      // Check if EmailJS is loaded from CDN
+      if (typeof window.emailjs === 'undefined') {
+        throw new Error('EmailJS not loaded')
+      }
+
+      // EmailJS configuration - Update these with your real EmailJS setup
+      const serviceId = 'service_portfolio'      // Your EmailJS Service ID
+      const templateId = 'template_portfolio'    // Your EmailJS Template ID  
+      const autoReplyTemplateId = 'template_autoreply'  // Auto-reply Template ID
+      const publicKey = 'H2v2dCuwqBaBxRxHe'      // Your EmailJS Public Key (UPDATE THIS!)
+      
+      // Template parameters for main email (to you)
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: 'Aditya Raj',
+        to_email: 'aditya.raj.cs22@gmail.com',           // Your main email where you want to receive messages
+        reply_to: formData.email
+      }
+      
+      // Template parameters for auto-reply (to sender)
+      const autoReplyParams = {
+        to_name: formData.name,
+        user_email: formData.email,       // Matches {{user_email}} in template
+        from_email: formData.email,       // Matches {{from_email}} in template  
+        from_name: 'Aditya Raj',
+        original_subject: formData.subject,
+        original_message: formData.message
+      }
+      
+      // Send main email to you (this is required)
+      console.log('Sending main email...')
+      await window.emailjs.send(serviceId, templateId, templateParams, publicKey)
+      console.log('Main email sent successfully')
+      
+      // Send auto-reply immediately (optional - won't fail if template doesn't exist)
+      try {
+        console.log('Sending auto-reply with params:', autoReplyParams)
+        await window.emailjs.send(serviceId, autoReplyTemplateId, autoReplyParams, publicKey)
+        console.log('Auto-reply sent successfully')
+      } catch (autoReplyError) {
+        console.error('Auto-reply failed:', autoReplyError)
+        console.error('Auto-reply error details:', autoReplyError.text || autoReplyError.message)
+        console.error('Auto-reply error status:', autoReplyError.status)
+        // Continue anyway - main email was sent successfully
+      }
+      
+      // Success
       setSubmitStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
-        setTimeout(() => {
+      
+      // Auto hide success message after 5 seconds
+      setTimeout(() => {
         setSubmitStatus(null)
       }, 5000)
-    }, 2000)
+      
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      console.error('Error details:', error.text || error.message)
+      
+      // More specific error handling
+      let errorMessage = 'Sorry, there was an error sending your message. Please try again or contact me directly.'
+      
+      if (error.message === 'EmailJS not loaded') {
+        errorMessage = 'Email service is loading. Please wait a moment and try again.'
+      } else if (error.status === 400) {
+        errorMessage = 'EmailJS configuration error. Please contact the site owner.'
+        console.error('EmailJS 400 Error - Check your service ID, template ID, or public key')
+      } else if (error.status === 401) {
+        errorMessage = 'EmailJS authentication failed. Please contact the site owner.'
+        console.error('EmailJS 401 Error - Invalid public key or unauthorized')
+      } else if (error.status === 404) {
+        errorMessage = 'EmailJS service not found. Please contact the site owner.'
+        console.error('EmailJS 404 Error - Service or template not found')
+      }
+      
+      setSubmitStatus('error')
+      
+      // Auto hide error message after 8 seconds
+      setTimeout(() => {
+        setSubmitStatus(null)
+      }, 8000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
+  
   const contactInfo = [
     {
       icon: 'fas fa-envelope',
       label: 'Email',
-      value: 'ad857885@gmail.com',
-      link: 'mailto:ad857885@gmail.com'
-    },
-    {
+      value: 'aditya.raj.cs22@gmail.com',
+      link: 'https://mail.google.com/mail/?view=cm&fs=1&to=aditya.raj.cs22@gmail.com'
+    },    {
       icon: 'fas fa-phone',
       label: 'Phone',
       value: '+91 82526 55016',
       link: 'tel:+918252655016'
-    },
-    {
+    },    {
       icon: 'fab fa-whatsapp',
       label: 'WhatsApp',
       value: '+91 88731 38156',
-      link: 'https://wa.me/918873138156'
-    },
-    {
-      icon: 'fas fa-map-marker-alt',
-      label: 'Location',
-      value: 'Patna, Bihar',
-      link: null
-    },
-    {
-      icon: 'fas fa-graduation-cap',
-      label: 'College',
-      value: 'GGITS, Jabalpur',
-      link: null
-    }]
+      link: 'https://wa.me/918873138156?text=Hi%20Aditya,%20I\'d%20like%20to%20connect!'
+    }
+  ]
     const socialLinks = [
     {
       name: 'LinkedIn',
@@ -82,24 +150,23 @@ const Contact = () => {
           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
         </svg>
       )
-    },
-    {
+    },    {
       name: 'Instagram',
       url: 'https://www.instagram.com/unsocial_aditya1',
       color: '#e4405f',
       icon: (
-        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" style={{ minWidth: '24px', minHeight: '24px' }}>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.40s-.644-1.44-1.439-1.44z"/>
         </svg>
       )
     }
   ]
 
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" aria-labelledby="contact-title">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Get In Touch</h2>
+          <h2 id="contact-title" className="section-title">Get In Touch</h2>
           <p className="section-subtitle">Let's discuss your next project</p>
         </div>
         
@@ -112,8 +179,7 @@ const Contact = () => {
                 need help with development, or just want to have a tech conversation, feel free to reach out!
               </p>
             </div>
-            
-            <div className="contact-details">
+              <div className="contact-details">
               {contactInfo.map((info, index) => (
                 <div key={index} className="contact-item">
                   <div className="contact-icon">
@@ -133,7 +199,8 @@ const Contact = () => {
             
             <div className="social-links">
               <h4>Follow me on</h4>
-              <div className="social-grid">                {socialLinks.map((social, index) => (
+              <div className="social-grid">
+                {socialLinks.map((social, index) => (
                   <a
                     key={index}
                     href={social.url}
@@ -143,8 +210,10 @@ const Contact = () => {
                     style={{ '--social-color': social.color }}
                     title={social.name}
                   >
-                    {social.icon}
-                    <span>{social.name}</span>
+                    <div className="social-icon">
+                      {social.icon}
+                    </div>
+                    <span className="social-text">{social.name}</span>
                   </a>
                 ))}
               </div>
@@ -229,6 +298,13 @@ const Contact = () => {
                   Thank you! Your message has been sent successfully. I'll get back to you soon.
                 </div>
               )}
+              
+              {submitStatus === 'error' && (
+                <div className="form-error">
+                  <i className="fas fa-exclamation-circle"></i>
+                  Sorry, there was an error sending your message. Please try again or contact me directly at aditya.raj.cs22@gmail.com.
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -236,12 +312,10 @@ const Contact = () => {
         <div className="cta-section">
           <div className="cta-content">
             <h3>Ready to start a project?</h3>
-            <p>Let's build something amazing together!</p>
-            <div className="cta-buttons">              <a href="mailto:ad857885@gmail.com" className="btn btn-primary">
+            <p>Let's build something amazing together!</p>            <div className="cta-buttons">              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aditya.raj.cs22@gmail.com" className="btn btn-primary" target="_blank" rel="noopener noreferrer">
                 <i className="fas fa-envelope"></i>
                 Email Me
-              </a>
-              <a href="/resume.pdf" target="_blank" className="btn btn-secondary">
+              </a>              <a href="https://drive.google.com/file/d/1F8NA1fkDjdik8q3qXD2HI0NxJjM7y0-m/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
                 <i className="fas fa-download"></i>
                 Download Resume
               </a>

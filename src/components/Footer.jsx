@@ -104,16 +104,13 @@ const Footer = () => {
                   <li><a href="#contact">Consulting</a></li>
                   <li><a href="#contact">Code Review</a></li>
                 </ul>
-              </div>
-              
-              <div className="footer-section">
+              </div>                <div className="footer-section">
                 <h4>Resources</h4>
                 <ul>
-                  <li><a href="/blog">Blog</a></li>
-                  <li><a href="/resume.pdf" target="_blank">Resume</a></li>
+                  <li><a href="https://github.com/aditya1122git" target="_blank" rel="noopener noreferrer">GitHub Projects</a></li>
                   <li><a href="#contact">Hire Me</a></li>
                   <li><a href="#projects">Portfolio</a></li>
-                  <li><a href="#contact">Testimonials</a></li>
+                  <li><a href="https://drive.google.com/file/d/1F8NA1fkDjdik8q3qXD2HI0NxJjM7y0-m/view?usp=sharing" target="_blank" rel="noopener noreferrer">Resume</a></li>
                 </ul>
               </div>
               
@@ -121,9 +118,8 @@ const Footer = () => {
                 <h4>Contact Info</h4>
                 <div className="contact-info">                  <p>
                     <i className="fas fa-envelope"></i>
-                    <a href="mailto:ad857885@gmail.com">ad857885@gmail.com</a>
-                  </p>
-                  <p>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aditya.raj.cs22@gmail.com" target="_blank" rel="noopener noreferrer">aditya.raj.cs22@gmail.com</a>
+                  </p>                  <p>
                     <i className="fas fa-phone"></i>
                     <a href="tel:+918252655016">+91 82526 55016</a>
                   </p>
@@ -139,12 +135,12 @@ const Footer = () => {
         
         <div className="footer-bottom">
           <div className="footer-bottom-content">            <p className="copyright">
-              © {currentYear} Aditya Raj. Made with <i className="fas fa-heart"></i> using React & Vite
+              © {currentYear} Aditya Raj. All Rights Reserved
             </p>
             <div className="footer-bottom-links">
-              <a href="/privacy">Privacy Policy</a>
-              <a href="/terms">Terms of Service</a>
-              <a href="/sitemap">Sitemap</a>
+              <a href="#about">About</a>
+              <a href="#projects">Projects</a>
+              <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer">Sitemap</a>
             </div>
           </div>
           

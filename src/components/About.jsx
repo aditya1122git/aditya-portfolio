@@ -1,15 +1,20 @@
 const About = () => {
   return (
-    <section id="about" className="about">
+    <section id="about" className="about" aria-labelledby="about-title">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">About Me</h2>
+          <h2 id="about-title" className="section-title">About Me</h2>
           <p className="section-subtitle">Get to know me better</p>
         </div>
           <div className="about-content">
           <div className="about-image">
             <div className="image-wrapper">
-              <img src="/image/person.jpeg" alt="Aditya Raj - About me" />
+              <img
+                src="/image/person.jpeg"
+                alt="Aditya Raj about section profile image"
+                loading="lazy"
+                decoding="async"
+              />
               <div className="image-overlay">
                 <div className="overlay-content">
                   <h4>Always Learning</h4>
@@ -22,7 +27,7 @@ const About = () => {
           <div className="about-text">
             <div className="text-content">
               <p>
-                Hello! I'm <strong>Aditya Raj</strong>, a passionate B.Tech Computer Science student currently in my 7th semester 
+                Hello! I'm <strong>Aditya Raj</strong>, a passionate B.Tech Computer Science student currently in my 8th semester 
                 at <strong>Gyan Ganga Institute Of Technology and Sciences, Jabalpur</strong>. Originally from Patna, Bihar, 
                 I completed my schooling from Park Mount Public School (12th CBSE - 2021) and Shivam School (10th CBSE - 2019).
               </p>

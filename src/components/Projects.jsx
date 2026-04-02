@@ -30,7 +30,7 @@ const Projects = () => {
       category: 'fullstack',
       description: 'A complete e-commerce solution with admin dashboard, payment integration, and real-time inventory management.',
       longDescription: 'Built a comprehensive e-commerce platform featuring user authentication, product catalog, shopping cart, payment processing with Stripe, order management, and admin dashboard. Implemented real-time inventory updates and email notifications.',
-      image: '/api/placeholder/600/400',
+      image: '/image/portfolio.png',
       technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Socket.io'],
       features: [
         'User authentication & authorization',
@@ -40,8 +40,7 @@ const Projects = () => {
         'Responsive design',
         'Email notifications'
       ],
-      liveLink: 'https://example.com',
-      githubLink: 'https://github.com/username/project',
+      githubLink: null,
       status: 'completed'    },    {
       id: 4,
       title: 'Portfolio Website',
@@ -58,8 +57,8 @@ const Projects = () => {
         'Fast loading',
         'Contact form'
       ],
-      liveLink: 'https://example.com',
-      githubLink: 'https://github.com/username/project',
+      liveLink: '/',
+      githubLink: 'https://github.com/aditya1122git/aditya-portfolio',
       status: 'completed'    },
     {
       id: 5,
@@ -67,7 +66,7 @@ const Projects = () => {
       category: 'backend',
       description: 'RESTful API for a social media platform with authentication, posts, and real-time messaging.',
       longDescription: 'Built a comprehensive social media API with user authentication, post creation, likes/comments system, real-time messaging, and image upload functionality.',
-      image: '/api/placeholder/600/400',
+      image: '/image/portfolio.png',
       technologies: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Cloudinary'],
       features: [
         'JWT authentication',
@@ -78,7 +77,7 @@ const Projects = () => {
         'API documentation'
       ],
       liveLink: null,
-      githubLink: 'https://github.com/username/project',
+      githubLink: null,
       status: 'completed'    },
     {
       id: 6,
@@ -86,7 +85,7 @@ const Projects = () => {
       category: 'frontend',
       description: 'A beautiful weather dashboard with location-based forecasts and interactive charts.',
       longDescription: 'Created a responsive weather dashboard that displays current weather conditions, 7-day forecasts, and interactive charts. Features location-based weather data and beautiful animations.',
-      image: '/api/placeholder/600/400',
+      image: '/image/weather.png',
       technologies: ['React', 'Chart.js', 'OpenWeather API', 'CSS3'],
       features: [
         'Location-based weather data',
@@ -96,8 +95,8 @@ const Projects = () => {
         'Responsive design',
         'PWA capabilities'
       ],
-      liveLink: 'https://example.com',
-      githubLink: 'https://github.com/username/project',
+      liveLink: 'https://weather-dashboard-rho-tawny.vercel.app/',
+      githubLink: null,
       status: 'completed'    },
     {
       id: 7,
@@ -105,7 +104,7 @@ const Projects = () => {
       category: 'fullstack',
       description: 'An AI-powered chat application with OpenAI integration and real-time messaging.',
       longDescription: 'Developed an AI chat application integrating OpenAI API for intelligent responses, real-time messaging, conversation history, and user management.',
-      image: '/api/placeholder/600/400',
+      image: '/image/portfolio.png',
       technologies: ['React', 'Node.js', 'OpenAI API', 'Socket.io', 'PostgreSQL'],
       features: [
         'OpenAI integration',
@@ -115,8 +114,8 @@ const Projects = () => {
         'Message encryption',
         'Responsive design'
       ],
-      liveLink: 'https://example.com',
-      githubLink: 'https://github.com/username/project',
+      liveLink: null,
+      githubLink: null,
       status: 'in-progress'
     }
   ]
@@ -143,10 +142,10 @@ const Projects = () => {
   }
 
   return (
-    <section id="projects" className="projects">
+    <section id="projects" className="projects" aria-labelledby="projects-title">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">My Projects</h2>
+          <h2 id="projects-title" className="section-title">My Projects</h2>
           <p className="section-subtitle">Things I've built and worked on</p>
         </div>
         
@@ -167,7 +166,7 @@ const Projects = () => {
           {filteredProjects.map(project => (
             <div key={project.id} className="project-card">
               <div className="project-image">
-                <img src={project.image} alt={project.title} />
+                <img src={project.image} alt={`${project.title} project screenshot`} loading="lazy" decoding="async" />
                 <div className="project-overlay">
                   <button 
                     className="btn btn-primary"
@@ -197,15 +196,17 @@ const Projects = () => {
                 
                 <div className="project-links">
                   {project.liveLink && (
-                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="project-link">
+                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="project-link" aria-label={`${project.title} live demo`}>
                       <i className="fas fa-external-link-alt"></i>
                       Live Demo
                     </a>
                   )}
-                  <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="project-link">
-                    <i className="fab fa-github"></i>
-                    Code
-                  </a>
+                  {project.githubLink && (
+                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="project-link" aria-label={`${project.title} source code`}>
+                      <i className="fab fa-github"></i>
+                      Code
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -223,7 +224,7 @@ const Projects = () => {
             
             <div className="modal-content">
               <div className="modal-image">
-                <img src={currentProject.image} alt={currentProject.title} />
+                <img src={currentProject.image} alt={`${currentProject.title} detailed preview`} loading="lazy" decoding="async" />
               </div>
               
               <div className="modal-info">
@@ -250,15 +251,17 @@ const Projects = () => {
                 
                 <div className="modal-links">
                   {currentProject.liveLink && (
-                    <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                    <a href={currentProject.liveLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary" aria-label={`${currentProject.title} live demo`}>
                       <i className="fas fa-external-link-alt"></i>
                       Live Demo
                     </a>
                   )}
-                  <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-                    <i className="fab fa-github"></i>
-                    View Code
-                  </a>
+                  {currentProject.githubLink && (
+                    <a href={currentProject.githubLink} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" aria-label={`${currentProject.title} source code`}>
+                      <i className="fab fa-github"></i>
+                      View Code
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

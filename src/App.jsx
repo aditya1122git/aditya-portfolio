@@ -42,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <Header theme={theme} toggleTheme={toggleTheme} />
-      <main>
+      <main id="main-content" role="main">
         <Hero />
         <About />
         <Skills />

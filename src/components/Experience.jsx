@@ -46,8 +46,8 @@ const Experience = () => {  const experiences = [
     {
       degree: 'Bachelor of Technology (Computer Science)',
       institution: 'Gyan Ganga Institute Of Technology and Sciences',
-      period: '2021 - 2025',
-      description: 'Currently in 7th semester, focusing on Software Development, Data Structures, and Web Technologies'
+      period: '2022 - 2026',
+      description: 'Currently in 8th semester, focusing on Software Development, Data Structures, and Web Technologies'
     },
     {
       degree: 'Higher Secondary (12th) - CBSE',
@@ -64,10 +64,10 @@ const Experience = () => {  const experiences = [
   ]
 
   return (
-    <section id="experience" className="experience">
+    <section id="experience" className="experience" aria-labelledby="experience-title">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Experience & Education</h2>
+          <h2 id="experience-title" className="section-title">Experience & Education</h2>
           <p className="section-subtitle">My professional journey</p>
         </div>
         
