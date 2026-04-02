@@ -61,7 +61,7 @@ const About = () => {
           <div className="highlight">
             <i className="fas fa-graduation-cap"></i>
             <h4>Computer Science Student</h4>
-            <p>7th Semester at GGITS, Jabalpur</p>
+            <p>8th Semester at GGITS, Jabalpur</p>
           </div>
           <div className="highlight">
             <i className="fas fa-project-diagram"></i>
