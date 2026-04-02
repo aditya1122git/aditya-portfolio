@@ -741,11 +741,7 @@
   }
 }
 
-<<<<<<< HEAD
 /* Profile image base styles */
-=======
-/* Profile image base styles - permanently grayscale */
->>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
 .profile-image img {
   width: 100%;
   height: 100%;
@@ -753,24 +749,15 @@
   object-position: center 70%;
   border-radius: 50%;
   transform: scale(0.9);
-<<<<<<< HEAD
   /* Initial grayscale effect */
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, filter;
-=======
-  /* Permanent grayscale effect */
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
-  transition: transform 0.3s ease;
-  will-change: transform;
->>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-<<<<<<< HEAD
 /* Desktop hover effects */
 @media (hover: hover) and (pointer: fine) {
   .profile-image:hover img {
@@ -810,15 +797,6 @@
   -webkit-filter: grayscale(0%) brightness(1.05) saturate(1.1) !important;
   filter: grayscale(0%) brightness(1.05) saturate(1.1) !important;
   transform: scale(0.95) !important;
-=======
-/* Simple hover effect - only slight scale, no color change */
-.profile-image:hover img {
-  transform: scale(0.95);
-}
-
-.profile-image:hover {
-  transform: scale(1.02);
->>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
 }
 
 .profile-image:focus {
@@ -833,7 +811,6 @@
     -webkit-filter: grayscale(100%) brightness(0.9);
     filter: grayscale(100%) brightness(0.9);
   }
-<<<<<<< HEAD
   
   .profile-image:hover img,
   .profile-image:focus img,
@@ -841,8 +818,6 @@
     -webkit-filter: grayscale(0%) brightness(1.1) saturate(1.2);
     filter: grayscale(0%) brightness(1.1) saturate(1.2);
   }
-=======
->>>>>>> e59e3c87a20f3d355ed0aac852123097ad40820b
 }
 
 .tech-icons {
